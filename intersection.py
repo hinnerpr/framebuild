@@ -1,4 +1,4 @@
-from numpy import *
+from numpy import array, dot, transpose, linalg
 from pdb import set_trace as brk
 
 class Lineseg:

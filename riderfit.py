@@ -2,7 +2,7 @@
 from argparse import *
 import configparser
 from utils import *
-from numpy import *
+from numpy import array, sin, cos, arccos, dot
 from numpy.linalg import norm
 from render import Render
 from framebuild import Frame

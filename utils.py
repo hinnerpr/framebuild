@@ -1,4 +1,4 @@
-from numpy import *
+from numpy import pi, sqrt
 
 TOP, BOTTOM = range(2)
 INSIDE, OUTSIDE = range(2)

@@ -1,4 +1,4 @@
-from numpy import *
+from numpy import array
 from utils import *
 import PIL.Image as Image
 import PIL.ImageDraw as ImageDraw

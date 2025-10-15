@@ -2,7 +2,8 @@
 import sys
 from argparse import *
 from collections import namedtuple
-from numpy import *
+import numpy as np
+from numpy import array, sin, cos, arcsin, arccos, arctan, pi, dot, cross
 from numpy.linalg import norm
 import configparser
 from copecalc import Curve
@@ -13,7 +14,7 @@ from render import Render
 from pdb import set_trace as brk
 
 EPSILON = 1e-5
-seterr(all='raise')
+np.seterr(all='raise')
 
 WheelGeom = namedtuple("WheelGeom", "trail front_centre rear_centre wheelbase")
 
