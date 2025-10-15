@@ -1,12 +1,10 @@
-from numpy import array
-from utils import *
-import PIL.Image as Image
-import PIL.ImageDraw as ImageDraw
-from pdb import set_trace as brk
+import numpy as np
+import utils
+import PIL
 
 class Render:
 	def __init__(self, inf, sup, px_per_mm=2):
-		self.margin = array([100, 100])
+		self.margin = np.array([100, 100])
 
 		self.px_per_mm = px_per_mm
 
@@ -15,11 +13,11 @@ class Render:
 
 		self.dims = [int(x * px_per_mm) \
 				for x in self.sup - self.inf + 2*self.margin]
-		self.im = Image.new("RGB", self.dims, "white")
-		self.draw = ImageDraw.Draw(self.im)
+		self.im = PIL.Image.new("RGB", self.dims, "white")
+		self.draw = PIL.ImageDraw.Draw(self.im)
 
 	def _project(self, p):
-		return array([p[0], p[1]])
+		return np.array([p[0], p[1]])
 
 	def screen_point(self, p):
 		p = self._project(p)
@@ -76,7 +74,7 @@ class Render:
 		self.draw.line(tuple([self.screen_point(p) for p in points]), colour)
 
 	def circle(self, origin, radius, colour):
-		w = array([radius, radius])
+		w = np.array([radius, radius])
 		a, b = self.screen_point(origin - w), self.screen_point(origin + w)
 		e_inf = (min(a[0], b[0]), min(a[1], b[1]))
 		e_sup = (max(a[0], b[0]), max(a[1], b[1]))
