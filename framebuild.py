@@ -431,11 +431,11 @@ class RearTriangle:
 		f = self.frame
 
 		print("""
-Rear Triangle
-=============
+		Rear Triangle
+		=============
 
-Tube Cuts
----------""")
+		Tube Cuts
+		---------""")
 
 		print("Chain Stay length from inside mitre to dropout: {:.2f}".format(
 			self.cs_in_mitre_length))
@@ -761,8 +761,8 @@ class Frame:
 
 	def render_mitre_templates(self):
 		print("""
-Mitres
-======""")
+		Mitres
+		======""")
 
 		for attr, caption, print_ref in (
 				("tt_ht", "Top Tube to Head Tube", True),
@@ -836,11 +836,11 @@ Mitres
 	def display(self):
 		"""Show key metrics"""
 		print("""
-Front Triangle
-==============
+		Front Triangle
+		==============
 
-Tube Cuts
----------""")
+		Tube Cuts
+		---------""")
 
 		print("Head Tube cut square {:.2f}".format(self.head_tube.length()))
 
@@ -878,8 +878,8 @@ Tube Cuts
 			self.down_tube.length()))
 
 		print("""
-Other Metrics
--------------""")
+		Other Metrics
+		-------------""")
 
 		reach_stack = self.head_tube.tube_top
 		print("Stack: {:.2f}".format(reach_stack[1]))

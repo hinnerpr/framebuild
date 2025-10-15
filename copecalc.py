@@ -1,22 +1,21 @@
 #!/usr/bin/env python3
-from argparse import *
-from math import *
+import argparse
+import math
 import sys
 import PIL.Image as Image
 import PIL.ImageDraw as ImageDraw
-from utils import rad2deg, deg2rad
-from pdb import set_trace as brk
+import utils
 
 def distance(a, b):
 	"""The distance between two points a and b"""
 	ret = 0
 	for i in range(2): ret += (b[i] - a[i])**2
-	return sqrt(ret)
+	return math.sqrt(ret)
 
 def angles(n=360*4):
 	"""Split the circle into n pieces and yield the angle at each one"""
 	theta = 0
-	step = (2*pi) / n
+	step = (2*math.pi) / n
 
 	for _ in range(n):
 		yield theta
@@ -36,7 +35,7 @@ class Ellipse:
 		total_dist, prev = 0, None
 
 		for theta in angles(100000):
-			point = (self.radii[0] * cos(theta), self.radii[1] * sin(theta))
+			point = (self.radii[0] * math.cos(theta), self.radii[1] * math.sin(theta))
 			if prev:
 				total_dist += distance(prev, point)
 			ret.append((theta, total_dist))
@@ -61,7 +60,7 @@ class Ellipse:
 		the circumference at that point. We do this with a precomputed map and
 		a binary search. There is better math to do this but it's harder than
 		you'd think"""
-		theta = fmod(theta, 2*pi)
+		theta = math.fmod(theta, 2*math.pi)
 		return self._search(theta, self.perim)
 
 	def text(self):
@@ -126,9 +125,9 @@ class Curve:
 		# The angle is the angle of the tube axes, but we want the orientation
 		# of the parent tube relative to the cut tube's cross-section, so just
 		# add 90 degrees.
-		angle = fmod(angle + 90, 360)
-		slope = tan(deg2rad(angle))
-		twist = deg2rad(self.twist)
+		angle = math.fmod(angle + 90, 360)
+		slope = math.tan(utils.deg2rad(angle))
+		twist = utils.deg2rad(self.twist)
 
 		# Radius as opposed to diameter
 		par_r = par / 2
@@ -141,8 +140,8 @@ class Curve:
 
 			# (a, b) is the point on the inside circumference of the cut tube
 			# at theta
-			a = R[0] * cos(theta + twist)
-			b = R[1] * sin(theta + twist)
+			a = R[0] * math.cos(theta + twist)
+			b = R[1] * math.sin(theta + twist)
 
 			a += offset
 
@@ -159,9 +158,9 @@ class Curve:
 				y = 1 - r - b * slope
 			else:
 				# phi is the angle of this point around the parent tube.
-				phi = asin(a)
+				phi = math.asin(a)
 				r = 1.0 + b * taper_r
-				y = 1 - r * cos(phi) - b * slope
+				y = 1 - r * math.cos(phi) - b * slope
 
 			# We map the angle back onto the outside diameter, although the
 			# actual curve is on the inside diameter. This implies your cut is
@@ -207,7 +206,7 @@ class Curve:
 		prev = None
 		for p in self.points:
 			p = p[:]
-			p[0] = fmod(p[0] + offset, dims[0])
+			p[0] = math.fmod(p[0] + offset, dims[0])
 			sp = screen_point(p)
 
 			if prev and prev[0] < sp[0]:
